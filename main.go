@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,8 +10,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type Uuid [16]byte
+
 type Coverage struct {
-	Id               string
+	Id               Uuid
 	UpdatedAt        time.Time
 	AppName          string
 	RepoBranch       string
@@ -18,7 +21,7 @@ type Coverage struct {
 	BuildEnvironment string
 	BuildCounter     int64
 	InternalBuildId  int64
-	CodeCoverage     float32
+	CodeCoverage     int
 }
 
 type Coverages []Coverage
@@ -31,7 +34,11 @@ func main() {
 }
 
 func CoverageIndex(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Coverage Index!")
+	coverages := Coverages{
+		Coverage{AppName: "app1"},
+		Coverage{AppName: "app2"},
+	}
+	json.NewEncoder(w).Encode(coverages)
 }
 
 func CoverageShow(w http.ResponseWriter, r *http.Request) {
