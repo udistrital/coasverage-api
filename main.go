@@ -10,18 +10,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type Uuid [16]byte
-
 type Coverage struct {
-	Id               Uuid
-	UpdatedAt        time.Time
-	AppName          string
-	RepoBranch       string
-	RepoCommit       string
-	BuildEnvironment string
-	BuildCounter     int64
-	InternalBuildId  int64
-	CodeCoverage     int
+	Id               string    `json:"id"`
+	UpdatedAt        time.Time `json:"updated_at"`
+	AppName          string    `json:"app_name"`
+	RepoBranch       string    `json:"repo_name"`
+	RepoCommit       string    `json:"repo_commit"`
+	BuildEnvironment string    `json:"build_environment"`
+	BuildCounter     int64     `json:"build_counter"`
+	InternalBuildId  int64     `json:"internal_build_id"`
+	CodeCoverage     float32   `json:"code_coverate"`
 }
 
 type Coverages []Coverage
