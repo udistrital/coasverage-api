@@ -1,4 +1,4 @@
-package main
+package coasverageapi
 
 import (
 	"github.com/gorilla/mux"

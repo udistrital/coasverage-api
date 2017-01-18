@@ -23,5 +23,5 @@ _testmain.go
 *.test
 *.prof
 
-coasverage-api
-lastupdate.tmp
+main
+oascoverageapi-linux-amd64

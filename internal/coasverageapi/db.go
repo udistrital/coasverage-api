@@ -1,8 +1,7 @@
-package main
+package coasverageapi
 
 import (
 	"database/sql"
-	"errors"
 	_ "github.com/lib/pq"
 	"log"
 	"os"
@@ -64,7 +63,7 @@ func init() {
 	var err error
 	postgres_url, postgres_url_found = os.LookupEnv("POSTGRES_URL")
 	if !postgres_url_found {
-		panic(errors.New("no $POSTGRES_URL"))
+		postgres_url = "postgres://test:test@127.0.0.1/test"
 	}
 	if DB, err = sql.Open("postgres", postgres_url); err != nil {
 		panic(err)

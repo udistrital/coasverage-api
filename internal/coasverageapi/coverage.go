@@ -1,4 +1,4 @@
-package main
+package coasverageapi
 
 import (
 	"database/sql"
