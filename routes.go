@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
 	"net/http"
 )
 
@@ -27,16 +26,4 @@ var routes = Routes{
 		Pattern:     "/coverage/{id}",
 		HandlerFunc: CoverageShow,
 	},
-}
-
-func NewRouter() (router *mux.Router) {
-	router = mux.NewRouter().StrictSlash(true)
-	for _, route := range routes {
-		router.
-			Methods(route.Method).
-			Path(route.Pattern).
-			Name(route.Name).
-			Handler(route.HandlerFunc)
-	}
-	return
 }
