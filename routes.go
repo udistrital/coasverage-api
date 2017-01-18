@@ -15,21 +15,21 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		Name:        "CoveragesGet",
+		Name:        "GetCoverages",
 		Method:      "GET",
 		Pattern:     "/coverages",
-		HandlerFunc: CoveragesGet,
+		HandlerFunc: GetCoverages,
 	},
 	Route{
-		Name:        "CoverageGet",
+		Name:        "GetCoverage",
 		Method:      "GET",
 		Pattern:     "/coverage/{id}",
-		HandlerFunc: CoverageGet,
+		HandlerFunc: GetCoverage,
 	},
 	Route{
-		Name:        "CoveragePost",
+		Name:        "PostCoverage",
 		Method:      "POST",
 		Pattern:     "/coverage",
-		HandlerFunc: CoveragePost,
+		HandlerFunc: PostCoverage,
 	},
 }

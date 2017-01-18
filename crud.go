@@ -17,7 +17,8 @@ func ReadCoverage(id string) (cov Coverage, err error) {
 	var build_counter int64
 	var internal_build_id sql.NullInt64
 	var code_coverage float32
-	if err = ReadCoverageStmt.QueryRow().Scan(&id, &updated_at, &app_name, &repo_branch, &repo_commit, &build_environment, &build_counter, &internal_build_id, &code_coverage); err == nil {
+	if err = ReadCoverageStmt.QueryRow(id).Scan(&id, &updated_at, &app_name, &repo_branch, &repo_commit, &build_environment, &build_counter, &internal_build_id, &code_coverage); err == nil {
+		cov.Id = id
 		cov.UpdatedAt = updated_at
 		cov.AppName = app_name
 		cov.RepoBranch = repo_branch
@@ -31,7 +32,12 @@ func ReadCoverage(id string) (cov Coverage, err error) {
 }
 
 func UpdateCoverage(cov Coverage) (err error) {
-	_, err = UpdateCoverageStmt.Exec(cov.AppName, cov.RepoBranch, cov.RepoCommit, cov.BuildEnvironment, cov.BuildCounter, cov.CodeCoverage)
+	if cov.InternalBuildId.Valid {
+		internal_build_id := cov.InternalBuildId.Int64
+		_, err = UpdateCoverageStmt.Exec(cov.AppName, cov.RepoBranch, cov.RepoCommit, cov.BuildEnvironment, cov.BuildCounter, internal_build_id, cov.CodeCoverage)
+	} else {
+		_, err = UpdateCoverageStmt.Exec(cov.AppName, cov.RepoBranch, cov.RepoCommit, cov.BuildEnvironment, cov.BuildCounter, nil, cov.CodeCoverage)
+	}
 	return
 }
 
