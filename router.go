@@ -13,8 +13,10 @@ func NewRouter() (router *mux.Router) {
 		var handler http.Handler
 		handler = route.HandlerFunc
 
-		access_log := os.Getenv("ACCESS_LOG")
-		if access_log == "" {
+		var access_log string
+		var access_log_found bool
+		access_log, access_log_found = os.LookupEnv("ACCESS_LOG")
+		if !access_log_found {
 			access_log = "yes"
 		}
 		if access_log == "yes" {
