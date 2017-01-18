@@ -13,7 +13,11 @@ func CoverageIndex(w http.ResponseWriter, r *http.Request) {
 		Coverage{AppName: "app1"},
 		Coverage{AppName: "app2"},
 	}
-	json.NewEncoder(w).Encode(coverages)
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	if err := json.NewEncoder(w).Encode(coverages); err != nil {
+		panic(err)
+	}
 }
 
 func CoverageShow(w http.ResponseWriter, r *http.Request) {
