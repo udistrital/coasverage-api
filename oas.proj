@@ -1,7 +1,0 @@
-{
-  "lang": "go",
-  "progname": "oascoverageapi",
-  "go": {
-    "build_path": "cmd/coasverageapi/main.go"
-  }
-}
